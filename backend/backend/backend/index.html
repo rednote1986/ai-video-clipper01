@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Video Clipper</title>
+</head>
+<body>
+  <h2>AI Video Clipper</h2>
+  <input type="file" id="video">
+  <button onclick="upload()">Upload</button>
+  <pre id="result"></pre>
+
+  <script>
+    function upload() {
+      const file = document.getElementById("video").files[0];
+      const formData = new FormData();
+      formData.append("video", file);
+
+      fetch("http://localhost:5000/upload", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("result").textContent =
+          JSON.stringify(data, null, 2);
+      });
+    }
+  </script>
+</body>
+</html>
